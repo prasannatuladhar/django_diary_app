@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title  %}
+ Djago Todo-list 
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <h3 class="mt-4">Django Todo-list App</h3>
+</div>
+<div class="row justify-content-center">
+    <form class="form-inline align-items-center" method="POST">
+    {% csrf_token %}
+      
+        <div class="form-group mx-sm-3 ">
+          <input type="text" class="form-control" name="task" placeholder="What need to be done?">
+        </div>
+        <button type="submit" class="btn btn-outline-dark mb-2">Create</button>
+      </form>
+</div>
+<div class="row justify-content-center mt-4">
+    <table class="table table-borderless">
+        <tbody>
+          
+          {% for item in tasklist %}
+             {% if item.done %}
+                <tr class="table-success">
+                <th scope="row" >{{ item.id }}</th>
+                <td> {{ item.task }} </td>
+                <td><a href="{% url 'undone_task' item.id %}" type="button" class="btn btn-danger px-3">Undone</a></td>
+                <td><a href="{% url 'edit' item.id %}" type="button" class="btn btn-info px-3">Edit</a></td>
+                <td><a href="{% url 'delete' item.id %}" type="button" class="btn btn-danger px-3">Delete</a></td>
+                
+                </tr>
+             {% else %}
+                <tr class="table-danger">
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.task }}</td>
+                <td><a href="{% url 'done_task' item.id %}" type="button" class="btn btn-success px-4">Done</a></td>
+                <td><a href="{% url 'edit' item.id %}" type="button" class="btn btn-info px-3">Edit</a></td>
+                <td><a href="{% url 'delete' item.id %}" type="button" class="btn btn-danger px-3">Delete</a></td>
+                </tr>
+              {% endif %} 
+        {% endfor %}
+          
+        </tbody>
+      </table>
+</div>
+{% endblock %}

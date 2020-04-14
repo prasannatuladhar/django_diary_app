@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title  %}
+ Djago Todo | Edit 
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="row justify-content-center mt-6">
+    <form class="form-inline align-items-center" method="POST">
+    {% csrf_token %}
+      {% if task %}
+        <div class="form-group mx-sm-3 ">
+          <input type="text" class="form-control" name="task" placeholder="{{ task.task }}" value="{{ task.task }}">
+        </div>
+        <button type="submit" class="btn btn-outline-dark mb-2">Edit and Update</button>
+      </form>
+      {% endif %}
+</div>
+
+{% endblock %}
